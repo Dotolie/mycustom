@@ -1,0 +1,16 @@
+[Unit]
+Description=mscontrol for sdn 
+After=systemd-modules-load.service
+
+[Service]
+Type=simple
+#RemainAfterExit=yes
+Restart=on-failure
+ExecStart=/usr/local/bin/mscontrol 2>&1 > /dev/null
+
+KillSignal=SIGINT
+
+SyslogIdentifier=mscontrol
+
+[Install]
+WantedBy=multi-user.target
