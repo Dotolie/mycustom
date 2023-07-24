@@ -22,6 +22,7 @@ IMAGE_INSTALL:append = " systemd-mount-partitions "
 #IMAGE_INSTALL:append = " cpufrequtils "
 IMAGE_INSTALL:append = " mc htop "
 IMAGE_INSTALL:append = " sdds "
+IMAGE_INSTALL:append = " mscontrol "
 
 
 #IMAGE_INSTALL:remove = " iptables "

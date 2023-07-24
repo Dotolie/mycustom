@@ -29,7 +29,7 @@ B = "${WORKDIR}/build"
 S = "${WORKDIR}/trunk"
 
 do_install() {
-   bbnote "install slots ------------${A7_OUTPUT_4USERFS}"
+   bbwarn "install slots ------------${A7_OUTPUT_4USERFS}"
    install -d ${D}${A7_OUTPUT_4USERFS}/
    install -m 755 ${B}/slots ${D}${A7_OUTPUT_4USERFS}/slots
 }
