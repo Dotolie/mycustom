@@ -1,0 +1,44 @@
+#!/bin/sh
+
+retval=""
+retnum=""
+
+names="PA PB PC PD PE PF PG PH PI PJ PK"
+pin="128 129 130 131 132 149 150 151 152 153 157 154 155"
+
+
+open() {
+        for val in ${pin}; do
+                echo "${val}" > /sys/class/gpio/export
+                echo "export ${val} "
+        done
+}
+
+close() {
+        for val in ${pin}; do
+                echo "${val}" > /sys/class/gpio/unexport
+                echo "unexport ${val} "
+        done
+}
+
+getName() {
+        quotient=$(expr $1 / 16)
+        reminder=$(expr $1 % 16)
+        retnum=${reminder}
+        set $names
+        i=`expr $quotient + 1`
+        eval retval=\${$i}
+}
+
+setDirEdge() {
+        for val in ${pin}; do
+                getName $val
+                echo in > /sys/class/gpio/${retval}${retnum}/direction
+                echo falling > /sys/class/gpio/${retval}${retnum}/edge
+        done
+}
+
+#ret=`close`
+ret=`open`
+ret=$(setDirEdge)
+

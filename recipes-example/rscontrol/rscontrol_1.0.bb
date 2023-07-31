@@ -1,5 +1,5 @@
-SUMMARY = "mscontrol recipe"
-DESCRIPTION = "Recipe for mscontrol"
+SUMMARY = "rscontrol recipe"
+DESCRIPTION = "Recipe for rscontrol"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 
@@ -16,7 +16,7 @@ SRC_URI = "svn://192.168.0.21/svn/mscontrol/;protocol=http;module=trunk;rev=head
 # Default service for systemd
 #inherit systemd update-rc.d python3native
 inherit systemd python3native
-SRC_URI += "file://mscontrol.service"
+SRC_URI += "file://rscontrol.service"
 
 
 DEPENDS += " cppzmq openssl "
@@ -26,7 +26,7 @@ inherit cmake
 B = "${WORKDIR}/build"
 S = "${WORKDIR}/trunk"
 
-MS_BOARDS_SERVICE ?= "1"
+RS_BOARDS_SERVICE ?= "1"
 
 
 # Create specific userfs package
@@ -40,32 +40,33 @@ do_install() {
 
    install -d ${D}${prefix}/local/bin/
    install -d ${D}${prefix}/local/log/
+   install -d ${D}${base_libdir}/
 
    install -m 755 ${B}/test/test ${D}${prefix}/local/bin/testm
    ln -sr  ${D}${prefix}/local/bin/testm ${D}${prefix}/local/bin/testa
    ln -sr  ${D}${prefix}/local/bin/testm ${D}${prefix}/local/bin/testc
    ln -sr  ${D}${prefix}/local/bin/testm ${D}${prefix}/local/bin/testt
 
-   install -m 755 ${B}/mscontrol ${D}${prefix}/local/bin/
-   install -m 755 ${B}/verify/verify ${D}${prefix}/local/bin/
+   install -m 755 ${B}/receiver/receiver ${D}${prefix}/local/bin/
+   install -m 644 ${B}/receiver/libsdds.so ${D}${base_libdir}/
 
-   if [ "${MS_BOARDS_SERVICE}" -eq 1 ]; then
+   if [ "${RS_BOARDS_SERVICE}" -eq 1 ]; then
         # Install systemd service for all machines configurations
-	bbwarn " sdnl board service "
+	bbwarn " cpu board service "
 
         if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
             install -d ${D}${systemd_unitdir}/system
-            install -m 644 ${WORKDIR}/mscontrol.service ${D}/${systemd_unitdir}/system
+            install -m 644 ${WORKDIR}/rscontrol.service ${D}/${systemd_unitdir}/system
 
-	    bbwarn " install systemd=${systemd_unitdir}/system/mscontrol.service"
+	    bbwarn " install systemd=${systemd_unitdir}/system/rscontrol.service"
         fi
    fi
 }
 
 # -----------------------------------------------------------
 # specific for service: start copro m4 firwmare at boot time
-SYSTEMD_PACKAGES += " mscontrol "
-SYSTEMD_SERVICE:${PN} = "mscontrol.service"
+SYSTEMD_PACKAGES += " rscontrol "
+SYSTEMD_SERVICE:${PN} = "rscontrol.service"
 SYSTEMD_AUTO_ENABLE:${PN} = "disable"
 
 #INITSCRIPT_NAME = "st-m4firmware-load-default.sh"
@@ -79,3 +80,7 @@ FILES:${PN}-userfs = "${prefix}/local/bin"
 FILES:${PN}-userfs += "${prefix}/local/log"
 
 FILES:${PN} += "${systemd_unitdir}/system"
+FILES:${PN} += "${base_libdir}/*.so"
+FILES_SOLIBSDEV=""
+#INSANE_SKIP_${PN} += "dev-so"
+

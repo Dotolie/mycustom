@@ -1,16 +1,16 @@
 [Unit]
-Description=sdds for sdnl 
+Description=sdds for cpu 
 After=systemd-modules-load.service
 
 [Service]
 Type=simple
 #RemainAfterExit=yes
 Restart=on-failure
-ExecStart=/usr/local/bin/mscontrol > /dev/null 2>&1
+ExecStart=/usr/local/bin/receiver > /dev/null 2>&1
 
 KillSignal=SIGINT
 
-SyslogIdentifier=mscontrol
+SyslogIdentifier=rscontrol
 
 [Install]
 WantedBy=multi-user.target

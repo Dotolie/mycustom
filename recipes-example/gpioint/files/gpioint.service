@@ -1,0 +1,16 @@
+[Unit]
+Description=gpioint for cpu
+After=systemd-modules-load.service
+
+[Service]
+Type=simple
+#RemainAfterExit=yes
+#Restart=on-failure
+ExecStart=/usr/local/bin/gpioint > /dev/null 2>&1
+
+
+SyslogIdentifier=gpioint
+
+[Install]
+WantedBy=multi-user.target
+
