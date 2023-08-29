@@ -19,8 +19,8 @@ PACKAGES += "${PN}-userfs"
 do_install() {
 	bbwarn "install gpioint & service "
 
-	install -d ${D}${prefix}/local/bin/
-	install -m 755  ${B}/gpioint ${D}${prefix}/local/bin/
+	install -d ${D}${prefix}/bin/
+	install -m 755  ${B}/gpioint ${D}${prefix}/bin/
 
 	install -d ${D}${systemd_unitdir}/system
 	install -m 644 ${WORKDIR}/gpioint.service ${D}/${systemd_unitdir}/system/
@@ -32,7 +32,8 @@ SYSTEMD_SERVICE:${PN} = "gpioint.service"
 SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 INITSCRIPT_NAME = ""
 
-FILES:${PN}-userfs = "${prefix}/local/bin"
+FILES:${PN} = "${prefix}/bin"
+#FILES:${PN}-userfs = "${prefix}/bin"
 
-FILES:${PN} = "${systemd_unitdir}/system"
+FILES:${PN} += "${systemd_unitdir}/system"
 

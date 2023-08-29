@@ -1,12 +1,12 @@
 [Unit]
 Description=sdds for sdnl 
-After=systemd-modules-load.service
+After=gpioint.service
 
 [Service]
 Type=simple
 #RemainAfterExit=yes
 Restart=on-failure
-ExecStart=/usr/local/bin/mscontrol > /dev/null 2>&1
+ExecStart=/usr/bin/mscontrol > /dev/null 2>&1
 
 KillSignal=SIGINT
 

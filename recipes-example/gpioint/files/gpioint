@@ -2,43 +2,219 @@
 
 retval=""
 retnum=""
+slot=""
+type=""
 
-names="PA PB PC PD PE PF PG PH PI PJ PK"
-pin="128 129 130 131 132 149 150 151 152 153 157 154 155"
+NAMES="PA PB PC PD PE PF PG PH PI PJ PK"
+PIN4IN1="129 130 131 132 133 134 135 136 137 138 139 140 141"
+PIN4IN2="143"
+PIN4ID="155 154 153 152"
+PIN4TP="159 158"
+PIN4OUT="150 151"
 
-
-open() {
-        for val in ${pin}; do
+openInt143() {
+        for val in ${PIN4IN2}; do
                 echo "${val}" > /sys/class/gpio/export
                 echo "export ${val} "
         done
 }
 
-close() {
-        for val in ${pin}; do
+openInt() {
+        if [ $type == 0 ]; then
+                for val in ${PIN4IN1}; do
+                        echo "${val}" > /sys/class/gpio/export
+                        echo "export ${val} "
+                done
+        else
+                for val in ${PIN4IN2}; do
+                        echo "${val}" > /sys/class/gpio/export
+                        echo "export ${val} "
+                done
+        fi
+}
+openId() {
+        for val in ${PIN4ID}; do
+                echo "${val}" > /sys/class/gpio/export
+                echo "export ${val} "
+        done
+}
+openType() {
+        for val in ${PIN4TP}; do
+                echo "${val}" > /sys/class/gpio/export
+                echo "export ${val} "
+        done
+}
+openOut() {
+        for val in ${PIN4OUT}; do
+                echo "${val}" > /sys/class/gpio/export
+                echo "export ${val} "
+        done
+
+}
+
+closeInt143() {
+        for val in ${PIN4IN2}; do
                 echo "${val}" > /sys/class/gpio/unexport
                 echo "unexport ${val} "
         done
 }
 
+closeInt() {
+        if [ $type == 0 ]; then
+	        for val in ${PIN4IN1}; do
+	                echo "${val}" > /sys/class/gpio/unexport
+	                echo "unexport ${val} "
+	        done
+	    else
+	        for val in ${PIN4IN2}; do
+	                echo "${val}" > /sys/class/gpio/unexport
+	                echo "unexport ${val} "
+	        done
+	    fi
+}
+
+closeId() {
+        for val in ${PIN4ID}; do
+                echo "${val}" > /sys/class/gpio/unexport
+                echo "unexport ${val} "
+        done
+}
+closeType() {
+        for val in ${PIN4TP}; do
+                echo "${val}" > /sys/class/gpio/unexport
+                echo "unexport ${val} "
+        done
+}
+
+closeOut() {
+        for val in ${PIN4OUT}; do
+                echo "${val}" > /sys/class/gpio/unexport
+                echo "unexport ${val} "
+        done
+}
+
+
 getName() {
         quotient=$(expr $1 / 16)
         reminder=$(expr $1 % 16)
         retnum=${reminder}
-        set $names
+
+        set $NAMES
         i=`expr $quotient + 1`
         eval retval=\${$i}
 }
 
-setDirEdge() {
-        for val in ${pin}; do
+setInt() {
+        if [ $type == 0 ]; then
+                for val in ${PIN4IN1}; do
+                        getName $val
+                        echo in > /sys/class/gpio/${retval}${retnum}/direction
+                        echo falling > /sys/class/gpio/${retval}${retnum}/edge
+                done
+        else
+                for val in ${PIN4IN2}; do
+                        getName $val
+                        echo in > /sys/class/gpio/${retval}${retnum}/direction
+                        echo falling > /sys/class/gpio/${retval}${retnum}/edge
+                done
+        fi
+}
+
+setId() {
+        id=0
+        for val in ${PIN4ID}; do
                 getName $val
                 echo in > /sys/class/gpio/${retval}${retnum}/direction
-                echo falling > /sys/class/gpio/${retval}${retnum}/edge
+                temp=`cat /sys/class/gpio/${retval}${retnum}/value`
+                id=`expr $id \* 2`
+                id=`expr $id + $temp`
+
+        done
+        slot=$id
+        echo slot=$slot
+}
+setTp() {
+        id=0
+        for val in ${PIN4TP}; do
+                getName $val
+                echo in > /sys/class/gpio/${retval}${retnum}/direction
+                temp=`cat /sys/class/gpio/${retval}${retnum}/value`
+                id=`expr $id \* 2`
+                id=`expr $id + $temp`
+        done
+        type=$id
+        echo type=$type
+}
+
+setOut() {
+        for val in ${PIN4OUT}; do
+                getName $val
+                echo out > /sys/class/gpio/${retval}${retnum}/direction
         done
 }
 
-#ret=`close`
-ret=`open`
-ret=$(setDirEdge)
+setEnableIF() {
+        val=151
+        getName $val
+        echo $val $retval $retnum
+        echo 1 > /sys/class/gpio/${retval}${retnum}/value
+}
 
+setDisableSEM() {
+        val=150
+        getName $val
+        echo $val $retval $retnum
+        echo 0 > /sys/class/gpio/${retval}${retnum}/value
+}
+
+start() {
+	openInt143
+	closeInt143
+	
+	openType
+	setTp
+
+	openInt
+	setInt
+
+	openId
+	setId
+
+	openOut
+	setOut
+
+	setEnableIF
+	setDisableSEM
+}
+
+stop() {
+	setTp
+	
+	closeInt
+	closeType
+	closeId
+	closeOut
+}
+
+
+case "$1" in
+	'start')
+		echo "start"
+		start
+		;;
+	'stop')
+		echo "stop"
+		stop
+		;;
+	'restart')
+		echo "restart"
+		stop
+		start
+		;;
+	*)
+		echo "start"
+		start
+		;;
+esac
+
+exit 0

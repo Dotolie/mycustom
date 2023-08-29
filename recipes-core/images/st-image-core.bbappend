@@ -23,6 +23,7 @@ IMAGE_INSTALL:append = " systemd-mount-partitions "
 IMAGE_INSTALL:append = " mc htop "
 IMAGE_INSTALL:append = " sdds "
 IMAGE_INSTALL:append = " lrzsz "
+IMAGE_INSTALL:append = " bash "
 #IMAGE_INSTALL:append = " pam-plugin-time"
 #IMAGE_INSTALL:append = " rscontrol "
 

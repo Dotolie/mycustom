@@ -36,19 +36,19 @@ PACKAGES += "${@bb.utils.contains('MS_PACKAGE_4USERFS', '1', '${PN}-userfs', '',
 
 
 do_install() {
-   bbwarn "install slots & verify to ${D}${prefix}/local/"
+   bbwarn "install slots & verify to ${D}${prefix}/bin/"
 
+   install -d ${D}${prefix}/bin/
    install -d ${D}${prefix}/local/bin/
    install -d ${D}${prefix}/local/log/
-   install -d ${D}${base_libdir}/
 
-   install -m 755 ${B}/test/test ${D}${prefix}/local/bin/testm
-   ln -sr  ${D}${prefix}/local/bin/testm ${D}${prefix}/local/bin/testa
-   ln -sr  ${D}${prefix}/local/bin/testm ${D}${prefix}/local/bin/testc
-   ln -sr  ${D}${prefix}/local/bin/testm ${D}${prefix}/local/bin/testt
+   install -m 755 ${B}/test/test ${D}${prefix}/bin/testm
+   ln -sr  ${D}${prefix}/bin/testm ${D}${prefix}/bin/testa
+   ln -sr  ${D}${prefix}/bin/testm ${D}${prefix}/bin/testc
+   ln -sr  ${D}${prefix}/bin/testm ${D}${prefix}/bin/testt
 
-   install -m 755 ${B}/receiver/receiver ${D}${prefix}/local/bin/
-   install -m 644 ${B}/receiver/libsdds.so ${D}${base_libdir}/
+   install -m 755 ${B}/receiver/receiver2 ${D}${prefix}/bin/
+   install -m 755 ${B}/receiver/receiver3 ${D}${prefix}/bin/
 
    if [ "${RS_BOARDS_SERVICE}" -eq 1 ]; then
         # Install systemd service for all machines configurations
@@ -76,11 +76,7 @@ SYSTEMD_AUTO_ENABLE:${PN} = "disable"
 INHIBIT_PACKAGE_STRIP = "1"
 INHIBIT_SYSROOT_STRIP = "1"
 
-FILES:${PN}-userfs = "${prefix}/local/bin"
-FILES:${PN}-userfs += "${prefix}/local/log"
-
-FILES:${PN} += "${systemd_unitdir}/system"
-FILES:${PN} += "${base_libdir}/*.so"
-FILES_SOLIBSDEV=""
-#INSANE_SKIP_${PN} += "dev-so"
+FILES:${PN} = "${prefix}/bin"
+FILES:${PN}-userfs = "${prefix}/local/log"
+FILES:${PN}-userfs += "${prefix}/local/bin"
 

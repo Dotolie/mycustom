@@ -1,12 +1,12 @@
 [Unit]
 Description=sdds for cpu 
-After=systemd-modules-load.service
+After=gpioint.service
 
 [Service]
 Type=simple
 #RemainAfterExit=yes
 Restart=on-failure
-ExecStart=/usr/local/bin/receiver > /dev/null 2>&1
+ExecStart=/usr/bin/receiver2 > /dev/null 2>&1
 
 KillSignal=SIGINT
 
