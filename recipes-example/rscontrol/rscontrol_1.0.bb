@@ -47,6 +47,7 @@ do_install() {
    ln -sr  ${D}${prefix}/bin/testm ${D}${prefix}/bin/testc
    ln -sr  ${D}${prefix}/bin/testm ${D}${prefix}/bin/testt
 
+   install -m 755 ${B}/receiver/receiver ${D}${prefix}/bin/
    install -m 755 ${B}/receiver/receiver2 ${D}${prefix}/bin/
    install -m 755 ${B}/receiver/receiver3 ${D}${prefix}/bin/
 
