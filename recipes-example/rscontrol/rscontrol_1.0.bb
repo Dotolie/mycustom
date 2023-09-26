@@ -50,6 +50,7 @@ do_install() {
    install -m 755 ${B}/receiver/receiver ${D}${prefix}/bin/
    install -m 755 ${B}/receiver/receiver2 ${D}${prefix}/bin/
    install -m 755 ${B}/receiver/receiver3 ${D}${prefix}/bin/
+   install -m 755 ${B}/manufacture/manufacture ${D}${prefix}/bin/
 
    if [ "${RS_BOARDS_SERVICE}" -eq 1 ]; then
         # Install systemd service for all machines configurations

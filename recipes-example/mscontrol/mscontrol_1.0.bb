@@ -49,6 +49,7 @@ do_install() {
 
    install -m 755 ${B}/mscontrol ${D}${prefix}/bin/
    install -m 755 ${B}/verify/verify ${D}${prefix}/bin/
+   install -m 755 ${B}/manufacture/manufacture ${D}${prefix}/bin/
 
    if [ "${MS_BOARDS_SERVICE}" -eq 1 ]; then
         # Install systemd service for all machines configurations

@@ -15,7 +15,7 @@
 IMAGE_INSTALL:append = " tzdata"
 IMAGE_INSTALL:append = " rpmsg-sdb-mod "
 IMAGE_INSTALL:append = " ethtool "
-IMAGE_INSTALL:append = " evtest "
+#IMAGE_INSTALL:append = " evtest "
 IMAGE_INSTALL:append = " zeromq cppzmq-dev"
 IMAGE_INSTALL:append = " usbotg-gadget-config"
 IMAGE_INSTALL:append = " systemd-mount-partitions "
@@ -24,7 +24,7 @@ IMAGE_INSTALL:append = " mc htop "
 IMAGE_INSTALL:append = " sdds "
 IMAGE_INSTALL:append = " lrzsz "
 IMAGE_INSTALL:append = " bash "
-#IMAGE_INSTALL:append = " pam-plugin-time"
+IMAGE_INSTALL:append = " pam-plugin-faillock"
 #IMAGE_INSTALL:append = " rscontrol "
 
 
