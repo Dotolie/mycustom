@@ -1,6 +1,9 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI:append = " file://nice.cfg "
+SRC_URI:append = " \
+	file://nice.cfg \
+	file://smallest.cfg \
+"
 
 do_install:append () {
 	bbwarn "move message log to /usr/local/log"
