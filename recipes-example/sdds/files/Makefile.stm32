@@ -28,14 +28,14 @@ TESTBIN := $(BUILD_OUT)/$(PROJ_NAME).bin
 
 # CFLAGS rules
 CPPFLAGS	+= $(COMMONFLAGS)
-CPPFLAGS	+= -Os
+CPPFLAGS	+= -O1
 #CFLAGS	+= -Og
 CPPFLAGS	+= -std=gnu++14
 CPPFLAGS	+= -fstack-usage
 CPPFLAGS	+= -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP
 #CFLAGS	+= -Wno-unused-function
 #CFLAGS	+= -Wno-unused-variable
-CPPFLAGS	+= -g3
+# CPPFLAGS	+= -g3
 #CFLAGS += -g
 #CFLAGS += -Werror
 
@@ -44,14 +44,14 @@ CPPFLAGS	+= -g3
 
 # CFLAGS rules
 CFLAGS	+= $(COMMONFLAGS)
-CFLAGS	+= -Os
+CFLAGS	+= -O1
 #CFLAGS	+= -Og
 CFLAGS	+= -std=gnu11
 CFLAGS	+= -fstack-usage
 CFLAGS	+= -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP
 #CFLAGS	+= -Wno-unused-function
 #CFLAGS	+= -Wno-unused-variable
-CFLAGS	+= -g3
+#CFLAGS	+= -g3
 #CFLAGS += -g
 #CFLAGS += -Werror
 

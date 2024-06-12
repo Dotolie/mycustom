@@ -1,4 +1,4 @@
-SUMMARY = "Example of how to build an external Linux kernel module"
+SUMMARY = "fast rpmsg Linux kernel module for stm32mp1"
 LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-only;md5=801f80980d171dd6425610833a22dbe6"
 

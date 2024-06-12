@@ -1,0 +1,25 @@
+{
+    "SLOT 0": {
+        "Model": "CPU",
+        "SN": "004800393232510B37373238",
+        "Test_Tmp": "44075 mC [OK]",
+        "Test_12V": "11427 mV [OK]",
+        "Test_5V": "5045 mV [OK]"
+    },
+    "SLOT 2": {
+        "Valid": "0xa2",
+        "Model": "SDL",
+        "State": "0x03",
+        "BaudRate": "10",
+        "FWver": "0.8",
+        "SN": "00280037-34315109-30393938"
+    },
+    "SLOT 7": {
+        "Valid": "0xa7",
+        "Model": "SDN",
+        "State": "0x03",
+        "BaudRate": "10",
+        "FWver": "0.8",
+        "SN": "0030002d-34315101-32323638"
+    }
+}

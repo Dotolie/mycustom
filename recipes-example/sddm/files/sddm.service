@@ -1,0 +1,12 @@
+[Unit]
+Description=sddm Service
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/bin
+ExecStart=/usr/local/bin/sddm
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

@@ -33,7 +33,7 @@ M4_BOARDS_SERVICE ?= "0"
 # Init default copro example to load/execute
 DEFAULT_COPRO_FIRMWARE = "sdds_CM4"
 
-BUILD_CONFIG ?= "Debug"
+BUILD_CONFIG ?= "Release"
 
 # Init default installation path
 #M4_FOLDER ?= "Cube-M4-examples"

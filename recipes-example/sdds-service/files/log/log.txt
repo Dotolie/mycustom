@@ -1,0 +1,4 @@
+2024-01-17 09:49:43 root                SDDS-SVC            Msg       서비스(데몬) 실행                                                                                                        
+2024-01-17 09:50:00 root                SDDS-SVC            Msg       Data saved successfully.                                                                                                        
+2024-01-17 09:50:00 root                SDDS-SVC            Msg       파일을 전송 하였습니다.                                                                                               
+2024-01-17 09:50:33 root                SDDS-SVC            Msg       EWS 연결이 끊어졌습니다.                                                                                               

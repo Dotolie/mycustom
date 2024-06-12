@@ -1,0 +1,15 @@
+[Unit]
+Description=sddi Service
+After=sddm.service sdda.service
+PartOf=sddm.service sdda.service
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/bin
+ExecStartPre=/bin/sleep 2
+ExecStart=/usr/local/bin/sddi
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
