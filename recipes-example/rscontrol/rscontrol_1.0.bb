@@ -26,7 +26,7 @@ inherit cmake
 B = "${WORKDIR}/build"
 S = "${WORKDIR}/trunk"
 
-RS_BOARDS_SERVICE ?= "1"
+RS_BOARDS_SERVICE ?= ""
 
 
 # Create specific userfs package
@@ -67,9 +67,9 @@ do_install() {
 
 # -----------------------------------------------------------
 # specific for service: start copro m4 firwmare at boot time
-SYSTEMD_PACKAGES += " rscontrol "
-SYSTEMD_SERVICE:${PN} = "rscontrol.service"
-SYSTEMD_AUTO_ENABLE:${PN} = "disable"
+#SYSTEMD_PACKAGES += " rscontrol "
+#SYSTEMD_SERVICE:${PN} = "rscontrol.service"
+#SYSTEMD_AUTO_ENABLE:${PN} = "disable"
 
 #INITSCRIPT_NAME = "st-m4firmware-load-default.sh"
 #INITSCRIPT_PARAMS = "stop 22 5 3 ."
