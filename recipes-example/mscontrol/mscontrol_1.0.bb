@@ -68,7 +68,7 @@ do_install() {
 # specific for service: start copro m4 firwmare at boot time
 SYSTEMD_PACKAGES += " mscontrol "
 SYSTEMD_SERVICE:${PN} = "mscontrol.service"
-SYSTEMD_AUTO_ENABLE:${PN} = "disable"
+SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 
 #INITSCRIPT_NAME = "st-m4firmware-load-default.sh"
 #INITSCRIPT_PARAMS = "stop 22 5 3 ."
