@@ -39,6 +39,7 @@ MS_PACKAGE_4USERFS ?= "1"
 do_install() {
    bbwarn "install SDDS_Service to ${D}${prefix}/local/SDDS_Service"
 
+   install -d ${D}${prefix}/local/log/
    install -d ${D}${prefix}/local/SDDS_Service/
    install -d ${D}${prefix}/local/SDDS_Service/data_org/
    install -d ${D}${prefix}/local/SDDS_Service/data_set/
@@ -70,14 +71,15 @@ do_install() {
 # specific for service: start copro m4 firwmare at boot time
 SYSTEMD_PACKAGES += " sdds-service"
 SYSTEMD_SERVICE:${PN} = "sdds_service.service"
-SYSTEMD_AUTO_ENABLE:${PN} = "enable"
+SYSTEMD_AUTO_ENABLE:${PN} = "disable"
 
 # -----------------------------------------------------------
 
 INHIBIT_PACKAGE_STRIP = "1"
 INHIBIT_SYSROOT_STRIP = "1"
 
-#FILES:${PN} = "${prefix}/bin"
-#FILES:${PN}-userfs = "${prefix}/local/log"
+FILES:${PN} = "${prefix}/bin"
+FILES:${PN}-userfs = "${prefix}/local/log"
 FILES:${PN}-userfs += "${prefix}/local/SDDS_Service"
+FILES:${PN} += "${systemd_unitdir}/system"
 

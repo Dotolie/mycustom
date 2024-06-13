@@ -20,7 +20,7 @@ SRC_URI += "file://key.pem"
 SRC_URI += "file://sddi"
 
 
-
+inherit systemd python3native
 
 B = "${WORKDIR}"
 S = "${WORKDIR}"
@@ -36,6 +36,7 @@ do_install() {
    bbwarn "install slots & verify to ${D}${prefix}/bin/"
 
    install -d ${D}${prefix}/local/bin/
+   install -d ${D}${prefix}/local/log/
 
    install -m 750 ${B}/sddi ${D}${prefix}/local/bin/sddi
    install -m 640 ${B}/key.pem ${D}${prefix}/local/bin/key.pem
@@ -59,14 +60,15 @@ do_install() {
 # specific for service: start copro m4 firwmare at boot time
 SYSTEMD_PACKAGES += " sddi"
 SYSTEMD_SERVICE:${PN} = "sddi.service"
-SYSTEMD_AUTO_ENABLE:${PN} = "enable"
+SYSTEMD_AUTO_ENABLE:${PN} = "disable"
 
 # -----------------------------------------------------------
 
 INHIBIT_PACKAGE_STRIP = "1"
 INHIBIT_SYSROOT_STRIP = "1"
 
-#FILES:${PN} = "${prefix}/bin"
-#FILES:${PN}-userfs = "${prefix}/local/log"
+FILES:${PN} = "${prefix}/bin"
+FILES:${PN}-userfs = "${prefix}/local/log"
 FILES:${PN}-userfs += "${prefix}/local/bin"
+FILES:${PN} += "${systemd_unitdir}/system"
 

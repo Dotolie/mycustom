@@ -19,7 +19,7 @@ SRC_URI = "file://sddm.service"
 SRC_URI += "file://sddm"
 
 
-
+inherit systemd python3native
 
 B = "${WORKDIR}"
 S = "${WORKDIR}"
@@ -36,6 +36,7 @@ do_install() {
    bbwarn "install slots & verify to ${D}${prefix}/bin/"
 
    install -d ${D}${prefix}/local/bin/
+   install -d ${D}${prefix}/local/log/
 
    install -m 755 ${B}/sddm ${D}${prefix}/local/bin/sddm
 
@@ -57,14 +58,15 @@ do_install() {
 # specific for service: start copro m4 firwmare at boot time
 SYSTEMD_PACKAGES += " sddm"
 SYSTEMD_SERVICE:${PN} = "sddm.service"
-SYSTEMD_AUTO_ENABLE:${PN} = "enable"
+SYSTEMD_AUTO_ENABLE:${PN} = "disable"
 
 # -----------------------------------------------------------
 
 INHIBIT_PACKAGE_STRIP = "1"
 INHIBIT_SYSROOT_STRIP = "1"
 
-#FILES:${PN} = "${prefix}/bin"
-#FILES:${PN}-userfs = "${prefix}/local/log"
+FILES:${PN} = "${prefix}/bin"
+FILES:${PN}-userfs = "${prefix}/local/log"
 FILES:${PN}-userfs += "${prefix}/local/bin"
+FILES:${PN} += "${systemd_unitdir}/system"
 
