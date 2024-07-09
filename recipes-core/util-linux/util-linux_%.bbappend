@@ -11,6 +11,7 @@ EXTRA_OECONF:append = " --enable-libuuid "
 EXTRA_OECONF:append = " --enable-libsmartcols "
 EXTRA_OECONF:append = " --enable-agetty "
 EXTRA_OECONF:append = " --enable-sulogin "
+EXTRA_OECONF:append = " --enable-hwclock "
 
 EXTRA_OECONF:append = " --disable-chmem "
 EXTRA_OECONF:append = " --disable-rfkill "
@@ -66,5 +67,9 @@ do_configure:append() {
     sed -i -e "s/BUILD_FINDMNT_TRUE='#'/BUILD_FINDMNT_TRUE=/g" ${S}/configure
     sed -i -e "s/BUILD_FINDMNT_FALSE='#'/BUILD_FINDMNT_FALSE=/g" ${S}/configure
     sed -i -e "s/BUILD_FINDMNT_FALSE=/BUILD_FINDMNT_FALSE='#'/g" ${S}/configure
+
+    sed -i -e "s/BUILD_RENICE_TRUE='#'/BUILD_RENICE_TRUE=/g" ${S}/configure
+    sed -i -e "s/BUILD_RENICE_FALSE='#'/BUILD_RENICE_FALSE=/g" ${S}/configure
+    sed -i -e "s/BUILD_RENICE_FALSE=/BUILD_RENICE_FALSE='#'/g" ${S}/configure
 }
 
